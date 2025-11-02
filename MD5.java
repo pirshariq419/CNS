@@ -1,0 +1,17 @@
+import java.security.MessageDigest;
+import java.util.Scanner;
+
+public class MD5 {
+    public static void main(String[] args) throws Exception {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter text: ");
+        String text = sc.nextLine();
+        MessageDigest md = MessageDigest.getInstance("MD5");
+        byte[] digest = md.digest(text.getBytes());
+        StringBuilder sb = new StringBuilder();
+        for (byte b : digest)
+            sb.append(String.format("%02x", b));
+        System.out.println("MD5 Hash: " + sb.toString());
+        sc.close();
+    }
+}

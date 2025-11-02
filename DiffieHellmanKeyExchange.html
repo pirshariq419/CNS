@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Simple Diffie-Hellman Key Exchange</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 40px;
+      background: #f8f9fa;
+    }
+    input {
+      margin: 5px;
+      padding: 8px;
+      width: 140px;
+      text-align: center;
+    }
+    button {
+      padding: 8px 15px;
+      margin-top: 10px;
+      cursor: pointer;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    .result {
+      margin-top: 20px;
+      font-size: 18px;
+      background: white;
+      display: inline-block;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      min-width: 250px;
+    }
+  </style>
+</head>
+<body>
+  <h2>🔐 Diffie-Hellman Key Exchange</h2>
+
+  <div>
+    <input id="p" type="number" placeholder="0" value="0"><br>
+    <input id="g" type="number" placeholder="0" value="0"><br>
+    <input id="a" type="number" placeholder="0" value="0"><br>
+    <input id="b" type="number" placeholder="0" value="0"><br>
+    <button onclick="computeDH()">Compute</button>
+  </div>
+
+  <div class="result" id="output"></div>
+
+  <script>
+    function computeDH() {
+      let p = parseInt(document.getElementById('p').value);
+      let g = parseInt(document.getElementById('g').value);
+      let a = parseInt(document.getElementById('a').value);
+      let b = parseInt(document.getElementById('b').value);
+
+      if (p === 0 || g === 0 || a === 0 || b === 0) {
+        document.getElementById('output').innerHTML = "⚠️ Please enter all values greater than zero.";
+        return;
+      }
+
+      let A = (g ** a) % p;
+      let B = (g ** b) % p;
+      let keyA = (B ** a) % p;
+      let keyB = (A ** b) % p;
+
+      document.getElementById('output').innerHTML =
+        `<b>Prime (p):</b> ${p}<br>
+         <b>Base (g):</b> ${g}<br><br>
+         <b>Alice's Public Key (A):</b> ${A}<br>
+         <b>Bob's Public Key (B):</b> ${B}<br><br>
+         <b>Shared Key (Alice):</b> ${keyA}<br>
+         <b>Shared Key (Bob):</b> ${keyB}`;
+    }
+  </script>
+</body>
+</html>
